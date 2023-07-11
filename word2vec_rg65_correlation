@@ -1,0 +1,85 @@
+# Jaiden Li - Word2Vec Similarity 
+import pandas as pd
+from scipy.stats import pearsonr, spearmanr
+
+import gensim.downloader as api
+wv = api.load('word2vec-google-news-300')
+
+pairs = [
+    ('cord', 'smile'),
+    ('rooster', 'voyage'),
+    ('noon', 'string'),
+    ('fruit', 'furnace'),
+    ('autograph', 'shore'),
+    ('automobile', 'wizard'),
+    ('mound', 'stove'),
+    ('grin', 'implement'),
+    ('asylum', 'fruit'),
+    ('asylum', 'monk'),
+    ('graveyard', 'madhouse'),
+    ('glass', 'magician'),
+    ('boy', 'rooster'),
+    ('cushion', 'jewel'),
+    ('monk', 'slave'),
+    ('asylum', 'cemetery'),
+    ('coast', 'forest'),
+    ('grin', 'lad'),
+    ('shore', 'woodland'),
+    ('monk', 'oracle'),
+    ('boy', 'sage'),
+    ('automobile', 'cushion'),
+    ('mound', 'shore'),
+    ('lad', 'wizard'),
+    ('forest', 'graveyard'),
+    ('food', 'rooster'),
+    ('cemetery', 'woodland'),
+    ('shore', 'voyage'),
+    ('bird', 'woodland'),
+    ('coast', 'hill'),
+    ('furnace', 'implement'),
+    ('crane', 'rooster'),
+    ('hill', 'woodland'),
+    ('car', 'journey'), 
+    ('cemetery', 'mound'),
+    ('glass', 'jewel'),
+    ('magician', 'oracle'),
+    ('crane', 'implement'),
+    ('brother', 'lad'),
+    ('sage', 'wizard'),
+    ('oracle', 'sage'),
+    ('bird', 'crane'),
+    ('bird', 'cock'),
+    ('food', 'fruit'),
+    ('brother', 'monk'),
+    ('asylum', 'madhouse'),
+    ('furnace', 'stove'),
+    ('magician', 'wizard'),
+    ('hill', 'mound'),
+    ('cord', 'string'),
+    ('glass', 'tumbler'),
+    ('grin', 'smile'),
+    ('serf', 'slave'),
+    ('journey', 'voyage'),
+    ('autograph', 'signature'),
+    ('coast', 'shore'),
+    ('forest', 'woodland'),
+    ('implement', 'tool'),
+    ('cock', 'rooster'),
+    ('boy', 'lad'),
+    ('cushion', 'pillow'),
+    ('cemetery', 'graveyard'),
+    ('automobile', 'car'),
+    ('midday', 'noon'),
+    ('gem', 'jewel'),
+]
+
+word2vec = []
+rg65 = [0.02, 0.04, 0.04, 0.05, 0.06, 0.11, 0.14, 0.18, 0.19, 0.39, 0.42, 0.44, 0.44, 0.45, 0.57, 0.79, 0.85, 0.88, 0.90, 0.91, 0.96, 0.97, 0.97, 0.99, 1.00, 1.09, 1.18, 1.22, 1.24, 1.26, 1.37, 1.41, 1.48, 1.55, 1.69, 1.78, 1.82, 2.37, 2.41, 2.46, 2.61, 2.63, 2.63, 2.69, 2.74, 3.04, 3.11, 3.21, 3.29, 3.41, 3.45, 3.46, 3.46, 3.58, 3.59, 3.60, 3.65, 3.66, 3.68, 3.82, 3.84, 3.88, 3.92, 3.94, 3.94]
+
+for w1, w2 in pairs:
+   word2vec.append(wv.similarity(w1, w2))
+
+pearson, _ = pearsonr(word2vec, rg65)
+spearman, _ = spearmanr(word2vec, rg65)
+print('Pearson Correlation: %.3f' % pearson)
+print('Spearman Rank Correlation: %.3f' % spearman)
